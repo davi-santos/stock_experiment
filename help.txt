@@ -1,0 +1,11 @@
+To use this script can pass the following attributes:
+    ticker: Symbol stock of a specific stock market
+    tickerlist: File holding a list of stock symbols
+
+Examples:
+
+#Example 1 - Get stock prices by name and bound dates
+python exporter.py --ticker "bova" --since 2019-01-01 --until 2019-01-02
+
+#Example 2 - Get stock prices by file and bound dates
+python exporter.py --tickerlist stocklist.txt --since 2019-01-01 --until 2019-01-02
