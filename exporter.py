@@ -1,10 +1,8 @@
 import os, sys, getopt, datetime, codecs
 
 def saveToFile (file, stockname, since_date, until_date):
-
+    pass
     
-
-
 def main(argv):
  
     if len(argv) == 0:
@@ -16,24 +14,24 @@ def main(argv):
         return
 
     try:
-        opts, args = getopt.getopt(argv, "", ("stockname=", "stocklist=", "since=", "until="))
+        opts, args = getopt.getopt(argv, "", ("ticker=", "fromfile=", "since=", "until="))
 
-        filename = ''; 
-        outputFileName = 'stock.csv'
+        stocks = ''; date_since = ''; date_until = ''
+        outputFileName = 'finances.csv'
 
         for opt, arg in opts:
             
-            if opt == '--stockname':
-                print(f'stockname is {opt}')
+            if opt == '--ticker':
+                stocks = [arg]
 
-            elif opt == '--stocklist':
-                print(f'stocklist is {opt}')
+            elif opt == '--fromfile':
+                f = open(arg, "r")
 
             elif opt == '--since':
-                print(f'since is {opt}')
+                date_since = arg
 
             elif opt == '--until':
-                print(f'until is {opt}')
+                date_until = arg
 
     except arg:
         print('Arguments parser error, try -h'+arg)

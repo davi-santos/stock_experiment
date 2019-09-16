@@ -1,32 +1,24 @@
 import Stock as st
 import os, sys, getopt, datetime, codecs
-
-def save_to_file(stockNames, outputFileName, sinceDate, untilDate):
-
-    f = open(outputFileName, "w")
-    f.write(("%s, %s, %s, %s, %s, %s, %s" % ('Ticker symbol',  'Date', 'Open', 'High', 'Low', 'Adj close', 'Volume')) )
-
-    for stock in stockNames:
-        print(stock.date)
-        f.write(('%s\n' % (stock, stock.date.date())))
-
-    f.close()
+import yfinance as yf
+import numpy as np
 
 def main():
-    file_name = 'stocklist.txt'
+    fileName = 'stocklist.txt'
     outputFileName = 'financial.csv'
     since = '2019-01-01'
     until = '2019-06-06'
 
-    if os.path.exists(file_name):
-        with open(file_name, 'r') as f:
+    if os.path.exists(fileName):
+        with open(fileName, 'r') as f:
             try:
-                list = f.read().splitlines()
-                save_to_file(list, outputFileName, since, until)
+                lista = f.read().splitlines()
+                words = ' '.join(lista)
+                search = yf.download(words, start=since, end=until)
+                search.to_csv(outputFileName, header=True, sep='\t', encoding='utf-8')
 
-            except IOError: # whatever reader errors you care about
+            except IOError:     
                 print('Could not read file. Check permissions')
-            # handle error
     else:
         print(f'file "{file_name}" does not exist in your current directory')
 
